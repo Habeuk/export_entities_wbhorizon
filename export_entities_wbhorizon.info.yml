@@ -1,0 +1,7 @@
+name: export_entities_wbhorizon
+type: module
+description: Permet de fournir des routes permettant d&#039;exporter les données pour wb-horizon
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - lesroidelareno:lesroidelareno
