@@ -2,15 +2,18 @@
 
 namespace Drupal\export_entities_wbhorizon\Resource;
 
-use Drupal\export_import_entities\Resource\CommerceProduct as CommerceProductParent;
-
 /**
  * Permet de retourner les pages en function du domaine.
  *
  * @internal
  */
-class CommerceProduct extends CommerceProductParent {
+class CommerceProduct extends BaseEntities {
   use HelperRessources;
+  /**
+   *
+   * @var string
+   */
+  protected $entity_id = "commerce_product";
   
 }
 

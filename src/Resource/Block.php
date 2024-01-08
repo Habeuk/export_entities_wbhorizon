@@ -2,9 +2,21 @@
 
 namespace Drupal\export_entities_wbhorizon\Resource;
 
+use Drupal\export_import_entities\Resource\BaseEntities;
 use Drupal\lesroidelareno\lesroidelareno;
 
-trait HelperRessources {
+/**
+ * Permet de retourner les pages en function du domaine.
+ *
+ * @internal
+ */
+class Block extends BaseEntities {
+  use HelperRessources;
+  /**
+   *
+   * @var string
+   */
+  protected $entity_id = "block";
   
   /**
    *
@@ -21,18 +33,8 @@ trait HelperRessources {
      * @var \Drupal\Core\Entity\Query\QueryInterface $entity_query
      */
     $entity_query = parent::getEntityQuery($entity_type_id);
-    $field_domain_access = \Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD;
-    $entity_query->condition($field_domain_access, lesroidelareno::getCurrentDomainId());
+    $entity_query->condition('theme', lesroidelareno::getCurrentDomainId());
     return $entity_query;
-  }
-  
-  public function countEntities($entity_type_id) {
-    /**
-     *
-     * @var \Drupal\Core\Entity\Query\QueryInterface $entity_query
-     */
-    $entity_query = $this->getEntityQuery($entity_type_id);
-    return $entity_query->count()->execute();
   }
   
 }

@@ -2,7 +2,6 @@
 
 namespace Drupal\export_entities_wbhorizon\Resource;
 
-use Drupal\export_import_entities\Resource\MenuLinkContent as MenuLinkContentParent;
 use Drupal\lesroidelareno\lesroidelareno;
 
 /**
@@ -10,8 +9,13 @@ use Drupal\lesroidelareno\lesroidelareno;
  *
  * @internal
  */
-class MenuLinkContent extends MenuLinkContentParent {
+class MenuLinkContent extends BaseEntities {
   use HelperRessources;
+  /**
+   *
+   * @var string
+   */
+  protected $entity_id = "menu_link_content";
   
   /**
    *

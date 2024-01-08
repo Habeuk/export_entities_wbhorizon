@@ -7,12 +7,12 @@ namespace Drupal\export_entities_wbhorizon\Resource;
  *
  * @internal
  */
-class BlocksContents extends BaseEntities {
+class Node extends BaseEntities {
   use HelperRessources;
   /**
    *
    * @var string
    */
-  protected $entity_id = "blocks_contents";
+  protected $entity_id = "node";
   
 }

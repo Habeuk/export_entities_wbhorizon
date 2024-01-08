@@ -1,0 +1,22 @@
+route_callbacks:
+  - '\Drupal\export_entities_wbhorizon\Routing\DynamicRoutes::routes'
+  
+export_entities_wbhorizon.config:
+  path: '/export-entities-wbhorizon/show-site-config'
+  defaults:
+    _title: 'Get current export'
+    _controller: '\Drupal\export_entities_wbhorizon\Controller\ExportEntitiesController::ShowSiteConfig'
+  requirements:
+    _permission: 'access content'
+    
+export_entities_wbhorizon.countentities:
+  path: '/export-entities-wbhorizon/countentities/{entity_id}'
+  defaults:
+    _title: 'Get current export'
+    _controller: '\Drupal\export_entities_wbhorizon\Controller\ExportEntitiesController::CountEntities'
+  requirements:
+    _permission: 'access content' 
+    _user_is_logged_in: 'TRUE'   
+  options:    
+    _auth: ['basic_auth', 'cookie']
+    

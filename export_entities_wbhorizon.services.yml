@@ -1,0 +1,5 @@
+services:
+  export_entities_wbhorizon.meta_datas_subscriber:
+    class: Drupal\export_entities_wbhorizon\EventSubscriber\MetaDatasSubscriber    
+    tags:
+      - { name: event_subscriber }
