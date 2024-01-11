@@ -26,6 +26,12 @@ trait HelperRessources {
     return $entity_query;
   }
   
+  /**
+   * Permet de retourner le nombre de données respectant les contraintes.
+   *
+   * @param string $entity_type_id
+   * @return number|array
+   */
   public function countEntities($entity_type_id) {
     /**
      *

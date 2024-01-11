@@ -32,6 +32,7 @@ class ConfigThemeEntity extends BaseEntities {
      * @var \Drupal\Core\Entity\Query\QueryInterface $entity_query
      */
     $entity_query = parent::getEntityQuery($entity_type_id);
+    $entity_query->condition('hostname', lesroidelareno::getCurrentDomainId());
     return $entity_query;
   }
   
