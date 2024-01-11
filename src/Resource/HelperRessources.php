@@ -13,7 +13,7 @@ trait HelperRessources {
    */
   protected function getEntityQuery($entity_type_id) {
     if (!lesroidelareno::userIsAdministratorSite() && !lesroidelareno::isAdministrator())
-      throw new \Exception("Vous n'avez pas les droits necessaire pour exporter le site : " . lesroidelareno::getCurrentDomainId());
+      throw new \Exception(" Vous n'avez pas les droits necessaire pour exporter le site : " . lesroidelareno::getCurrentDomainId());
     
     /**
      *

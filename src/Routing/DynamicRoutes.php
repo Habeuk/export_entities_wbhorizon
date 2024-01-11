@@ -214,7 +214,7 @@ class DynamicRoutes {
     foreach ($ids as $id) {
       $resource_types[] = 'menu_link_content--' . $id;
     }
-    $routes['export_entities_wbhorizon.menu_link_content'] = new Route('/%jsonapi%/export-entities-wbhorizon/menu-link-content', [
+    $routes['export_entities_wbhorizon.menu_link_content'] = new Route('/%jsonapi%/export-entities-wbhorizon/menu_link_content', [
       '_jsonapi_resource' => 'Drupal\export_entities_wbhorizon\Resource\MenuLinkContent',
       '_jsonapi_resource_types' => $resource_types,
       'requirements' => [
