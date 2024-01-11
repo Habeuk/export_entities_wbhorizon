@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Stephane888\DrupalUtility\HttpResponse;
 use Stephane888\Debug\Repositories\ConfigDrupal;
 use Drupal\export_entities_wbhorizon\Resource\CountEntities;
+use Drupal\export_entities_wbhorizon\Resource\MenuLinkContent;
 
 /**
  * --
@@ -21,9 +22,20 @@ class ExportEntitiesController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
   public function CountEntities($entity_id) {
-    $BaseEntities = new CountEntities();
-    $BaseEntities->setEntityTypeManager(\Drupal::entityTypeManager());
-    $nbre = $BaseEntities->countEntities($entity_id);
+    switch ($entity_id) {
+      case 'menu_link_content':
+        $MenuLinkContent = new MenuLinkContent();
+        $MenuLinkContent->setEntityTypeManager(\Drupal::entityTypeManager());
+        $nbre = $MenuLinkContent->countEntities($entity_id);
+        break;
+      
+      default:
+        $BaseEntities = new CountEntities();
+        $BaseEntities->setEntityTypeManager(\Drupal::entityTypeManager());
+        $nbre = $BaseEntities->countEntities($entity_id);
+        break;
+    }
+    
     return HttpResponse::response($nbre);
   }
   

@@ -24,9 +24,8 @@ class Block extends BaseEntities {
    * @see \Drupal\jsonapi_resources\Resource\EntityQueryResourceBase::getEntityQuery()
    */
   protected function getEntityQuery($entity_type_id) {
-    if (!lesroidelareno::userIsAdministratorSite() && !lesroidelareno::isAdministrator()) {
+    if (!lesroidelareno::userIsAdministratorSite() && !lesroidelareno::isAdministrator())
       throw new \Exception("Vous n'avez pas les droits necessaire pour exporter le site");
-    }
     
     /**
      *
