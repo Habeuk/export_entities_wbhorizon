@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * implement entity hook_ENTITY_TYPE_load
+ *
+ * @param true $entities
+ */
+// function export_entities_wbhorizon_menu_load($entities) {
+//   \Drupal::messenger()->addStatus('ENTITY_TYPE_load menu');
+// }
