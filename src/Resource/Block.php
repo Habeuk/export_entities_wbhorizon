@@ -33,6 +33,7 @@ class Block extends BaseEntities {
      */
     $entity_query = parent::getEntityQuery($entity_type_id);
     $entity_query->condition('theme', lesroidelareno::getCurrentDomainId());
+    
     return $entity_query;
   }
   
