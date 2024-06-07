@@ -5,7 +5,7 @@ namespace Drupal\export_entities_wbhorizon\Resource;
 use Drupal\lesroidelareno\lesroidelareno;
 
 trait HelperRessources {
-  
+
   /**
    *
    * {@inheritdoc}
@@ -14,7 +14,7 @@ trait HelperRessources {
   protected function getEntityQuery($entity_type_id) {
     if (!lesroidelareno::userIsAdministratorSite() && !lesroidelareno::isAdministrator())
       throw new \Exception(" Vous n'avez pas les droits necessaire pour exporter le site : " . lesroidelareno::getCurrentDomainId());
-    
+
     /**
      *
      * @var \Drupal\Core\Entity\Query\QueryInterface $entity_query
@@ -24,7 +24,7 @@ trait HelperRessources {
     $entity_query->condition($field_domain_access, lesroidelareno::getCurrentDomainId());
     return $entity_query;
   }
-  
+
   /**
    * Permet de retourner le nombre de données respectant les contraintes.
    *
@@ -37,7 +37,7 @@ trait HelperRessources {
      * @var \Drupal\Core\Entity\Query\QueryInterface $entity_query
      */
     $entity_query = $this->getEntityQuery($entity_type_id);
+    $entity_query->accessCheck(TRUE);
     return $entity_query->count()->execute();
   }
-  
 }
