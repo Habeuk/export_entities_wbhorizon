@@ -194,6 +194,22 @@ class DynamicRoutes {
         '_auth' => 'basic_auth'
       ]
     ]);
+    
+    /**
+     * Routes for commerce_promotion.
+     */
+    $resource_types = [
+      'commerce_promotion--commerce_promotion'
+    ];
+    $routes['export_entities_wbhorizon.commerce_promotion'] = new Route('/%jsonapi%/export-entities-wbhorizon/commerce_promotion', [
+      '_jsonapi_resource' => 'Drupal\export_entities_wbhorizon\Resource\CommercePromotion',
+      '_jsonapi_resource_types' => $resource_types,
+      'requirements' => [
+        '_permission' => 'access content',
+        '_user_is_logged_in' => TRUE,
+        '_auth' => 'basic_auth'
+      ]
+    ]);
   }
   
   /**
