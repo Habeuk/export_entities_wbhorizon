@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Route;
  * Defines dynamic routes.
  */
 class DynamicRoutes {
-  
+
   /**
    *
    * {@inheritdoc}
@@ -22,9 +22,10 @@ class DynamicRoutes {
     $this->routeForNodes($routes);
     $this->routeForBlockContent($routes);
     $this->routeForMultis($routes);
+    $this->routeForBookingEquipes($routes);
     return $routes;
   }
-  
+
   /**
    * _role: 'gerant_de_site_web+administrator'
    *
@@ -57,7 +58,7 @@ class DynamicRoutes {
       ]
     ]);
   }
-  
+
   /**
    * _role: 'gerant_de_site_web+administrator'
    *
@@ -82,7 +83,7 @@ class DynamicRoutes {
       ]
     ]);
   }
-  
+
   public function routeForBlocksContents(array &$routes) {
     /**
      * Routes pour tous les produits.
@@ -102,7 +103,7 @@ class DynamicRoutes {
       ]
     ]);
   }
-  
+
   /**
    * _role: 'gerant_de_site_web+administrator'
    *
@@ -127,7 +128,32 @@ class DynamicRoutes {
       ]
     ]);
   }
-  
+
+  /**
+   * _role: 'gerant_de_site_web+administrator'
+   *
+   * @param array $routes
+   */
+  public function routeForBookingEquipes(array &$routes) {
+    /**
+     * Routes pour tous les produits.
+     */
+    $entities_types = \Drupal::entityTypeManager()->getStorage('booking_config_type')->loadMultiple();
+    $resource_types = [];
+    foreach ($entities_types as $entity_type) {
+      $resource_types[] = 'booking_equipes--' . $entity_type->id();
+    }
+    $routes['export_entities_wbhorizon.booking_equipes'] = new Route('/%jsonapi%/export-entities-wbhorizon/booking_equipes', [
+      '_jsonapi_resource' => 'Drupal\export_entities_wbhorizon\Resource\BookingEquipes',
+      '_jsonapi_resource_types' => $resource_types,
+      'requirements' => [
+        '_permission' => 'access content',
+        '_user_is_logged_in' => TRUE,
+        '_auth' => 'basic_auth'
+      ]
+    ]);
+  }
+
   /**
    * _role: 'gerant_de_site_web+administrator'
    *
@@ -152,7 +178,7 @@ class DynamicRoutes {
       ]
     ]);
   }
-  
+
   /**
    * Route permettant de retourner tous les paragraphes.
    *
@@ -176,7 +202,7 @@ class DynamicRoutes {
         '_auth' => 'basic_auth'
       ]
     ]);
-    
+
     /**
      * Routes pour tous les produits.
      */
@@ -194,7 +220,7 @@ class DynamicRoutes {
         '_auth' => 'basic_auth'
       ]
     ]);
-    
+
     /**
      * Routes for commerce_promotion.
      */
@@ -211,7 +237,7 @@ class DynamicRoutes {
       ]
     ]);
   }
-  
+
   /**
    * Permet de generer une route d'export pour chaque menu principal.
    *
@@ -240,5 +266,4 @@ class DynamicRoutes {
       ]
     ]);
   }
-  
 }
