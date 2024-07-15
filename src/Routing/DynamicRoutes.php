@@ -23,6 +23,7 @@ class DynamicRoutes {
     $this->routeForBlockContent($routes);
     $this->routeForMultis($routes);
     $this->routeForBookingEquipes($routes);
+    $this->routeForShippingMethods($routes);
     return $routes;
   }
 
@@ -145,6 +146,28 @@ class DynamicRoutes {
     }
     $routes['export_entities_wbhorizon.booking_equipes'] = new Route('/%jsonapi%/export-entities-wbhorizon/booking_equipes', [
       '_jsonapi_resource' => 'Drupal\export_entities_wbhorizon\Resource\BookingEquipes',
+      '_jsonapi_resource_types' => $resource_types,
+      'requirements' => [
+        '_permission' => 'access content',
+        '_user_is_logged_in' => TRUE,
+        '_auth' => 'basic_auth'
+      ]
+    ]);
+  }
+
+  /**
+   * _role: 'gerant_de_site_web+administrator'
+   *
+   * @param array $routes
+   */
+  public function routeForShippingMethods(array &$routes) {
+    /**
+     * Routes pour tous les produits.
+     */
+    $resource_types = [];
+    $resource_types[] = 'commerce_shipping_method--commerce_shipping_method';
+    $routes['export_entities_wbhorizon.booking_equipes'] = new Route('/%jsonapi%/export-entities-wbhorizon/commerce_shipping_methods', [
+      '_jsonapi_resource' => 'Drupal\export_entities_wbhorizon\Resource\CommerceShipping',
       '_jsonapi_resource_types' => $resource_types,
       'requirements' => [
         '_permission' => 'access content',
