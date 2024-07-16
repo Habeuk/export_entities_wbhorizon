@@ -166,7 +166,7 @@ class DynamicRoutes {
      */
     $resource_types = [];
     $resource_types[] = 'commerce_shipping_method--commerce_shipping_method';
-    $routes['export_entities_wbhorizon.booking_equipes'] = new Route('/%jsonapi%/export-entities-wbhorizon/commerce_shipping_methods', [
+    $routes['export_entities_wbhorizon.commerce_shipping_method'] = new Route('/%jsonapi%/export-entities-wbhorizon/commerce_shipping_methods', [
       '_jsonapi_resource' => 'Drupal\export_entities_wbhorizon\Resource\CommerceShipping',
       '_jsonapi_resource_types' => $resource_types,
       'requirements' => [
