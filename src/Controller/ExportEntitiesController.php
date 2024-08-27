@@ -15,7 +15,7 @@ use Drupal\export_entities_wbhorizon\Resource\MenuLinkContent;
  *        
  */
 class ExportEntitiesController extends ControllerBase {
-  
+
   /**
    *
    * @param string $entity_id
@@ -28,17 +28,19 @@ class ExportEntitiesController extends ControllerBase {
         $MenuLinkContent->setEntityTypeManager(\Drupal::entityTypeManager());
         $nbre = $MenuLinkContent->countEntities($entity_id);
         break;
-      
+
       default:
         $BaseEntities = new CountEntities();
         $BaseEntities->setEntityTypeManager(\Drupal::entityTypeManager());
         $nbre = $BaseEntities->countEntities($entity_id);
         break;
     }
-    
+
     return HttpResponse::response($nbre);
   }
-  
+  /**
+   * @deprecated system.site configuration has already the right value with the module domain_language
+   */
   public function ShowSiteConfig() {
     /**
      * Get default langue :
@@ -71,5 +73,4 @@ class ExportEntitiesController extends ControllerBase {
       'system.site' => $config
     ]);
   }
-  
 }
