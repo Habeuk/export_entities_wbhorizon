@@ -14,5 +14,4 @@ class BlockContent extends BaseEntities {
    * @var string
    */
   protected $entity_id = "block_content";
-  
 }
