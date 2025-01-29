@@ -7,6 +7,8 @@ use Drupal\lesroidelareno\lesroidelareno;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\jsonapi\ResourceResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
+use Drupal\jsonapi\JsonApiResource\ResourceObject;
 
 /**
  * Permet de retourner les pages en function du domaine.
@@ -20,6 +22,10 @@ class Block extends BaseEntities {
    * @var string
    */
   protected $entity_id = "block";
+  
+  function injectResourceDependencies() {
+    //
+  }
   
   /**
    * Process the resource request.
@@ -43,15 +49,22 @@ class Block extends BaseEntities {
     
     $paginator = $this->getPaginatorForRequest($request);
     $paginator->applyToQuery($entity_query, $cacheability);
-    $check_access = false;
-    $load_latest_revisions = false;
+    // $check_access = false;
+    // $load_latest_revisions = false;
+    // /**
+    // *
+    // * @var \Drupal\jsonapi\JsonApiResource\ResourceObjectData $data
+    // */
+    // $data = $this->loadResourceObjectDataFromEntityQuery($entity_query,
+    // $cacheability, $load_latest_revisions, $check_access);
     /**
+     * Essaie via la nouvelle methode.
      *
      * @var \Drupal\jsonapi\JsonApiResource\ResourceObjectData $data
      */
-    $data = $this->loadResourceObjectDataFromEntityQuery($entity_query, $cacheability, $load_latest_revisions, $check_access);
+    $data = $this->getEntityFromJSONAPI($entity_query, $cacheability);
+    //
     $pagination_links = $paginator->getPaginationLinks($entity_query, $cacheability, TRUE);
-    // dd($data);
     /**
      *
      * @var \Drupal\jsonapi\CacheableResourceResponse $response
@@ -66,8 +79,19 @@ class Block extends BaseEntities {
    * On va devoir construire une fonction qui retourne les données similaire à
    * celui de JSON.
    */
-  private function getEntityFromJSONAPI($entity_query) {
+  protected function getEntityFromJSONAPI($entity_query, CacheableMetadata $cacheable_metadata) {
+    $entity_type_id = $entity_query->getEntityTypeId();
+    $entityQueryExecutor = \Drupal::service("jsonapi_resources.entity_query_executor");
+    $ids = $entityQueryExecutor->executeQueryAndCaptureCacheability($entity_query, $cacheable_metadata);
     //
+    $storage = $this->entityTypeManager->getStorage($entity_type_id);
+    $entities = $storage->loadMultiple($ids);
+    //
+    $resource_objects = [];
+    foreach ($entities as $entity) {
+      $resource_objects[$entity->id()] = ResourceObject::createFromEntity($this->resourceTypeRepository->get($entity->getEntityTypeId(), $entity->bundle()), $entity);
+    }
+    return new ResourceObjectData(array_values($resource_objects));
   }
   
   /**
